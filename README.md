@@ -518,7 +518,6 @@ Result : PASS
 | TC_PIM_001_addEmployeeValid        | PIM    | 00:00:08.465 | PASS   |
 | TC_PIM_002_addEmployeeNoMiddleName | PIM    | 00:00:08.241 | PASS   |
 
-**Total Time:** ~16 seconds  
 **Pass Rate:** 100%
 
 
@@ -619,6 +618,35 @@ java -cp target/classes Driver.RegressionDriver \
   -url https://...
 ```
 
+---
+##  Project Navigation Flow
+This video shows the basic navigation flow of the automation project before adding any test cases.
+It demonstrates only:
+
+How the framework handles page navigation
+
+How the driver moves through the UI
+
+How the Page Object Model (POM) structure works
+
+How the main test class performs navigation functions
+
+Navigation across the core OrangeHRM pages:
+
+Login
+
+Dashboard
+
+PIM
+
+Leave
+
+Recruitment
+
+Note: This is not a test case.
+It is only a demonstration of the framework’s navigation flow using POM + Controllers.
+
+https://github.com/sajaayyad-2021/OrangeHRM-Selenium-test-Automation-Suite/issues/1
 ---
 
 ##  Contributing
