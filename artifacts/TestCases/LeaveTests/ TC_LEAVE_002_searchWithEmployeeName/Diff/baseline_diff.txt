@@ -1,5 +1,6 @@
-___TC_LOG_001_validLogin DIFF___
-Expected: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
-
-Actual  : https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
-Result  : PASS
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+RESULT: PASS
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+RESULT: PASS

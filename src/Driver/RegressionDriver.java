@@ -21,16 +21,11 @@ public class RegressionDriver extends BaseTemplate {
 		
 		
 		BaseTemplate.Setargs(args); 
-        
 		TestNG testng = new TestNG();
-		List<String> suite = Lists.newArrayList();
-        
-		suite.add(xml); 
-		
-		testng.setTestSuites(suite);
-		
+		List<String> suite = Lists.newArrayList();  
+		suite.add(xml); 	
+		testng.setTestSuites(suite);	
 		testng.run(); 
-        
         System.out.println("=== RegressionDriver finished ===");
 
 	}

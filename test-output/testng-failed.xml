@@ -11,14 +11,6 @@
           <include name="LeaveSuite"/>
         </methods>
       </class> <!-- Test.LeaveTests -->
-      <class name="Test.PIMTests">
-        <methods>
-          <include name="afterSuiteCleanup"/>
-          <include name="PIMSuite"/>
-          <include name="beforeSuiteSetup"/>
-          <include name="getMethodname"/>
-        </methods>
-      </class> <!-- Test.PIMTests -->
     </classes>
   </test> <!-- RegressionSuite(failed) -->
 </suite> <!-- Failed suite [AutomationSuite] -->

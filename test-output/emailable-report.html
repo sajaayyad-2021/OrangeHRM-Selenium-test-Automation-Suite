@@ -9,38 +9,12 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">AutomationSuite</th></tr>
-<tr><td><a href="#t0">RegressionSuite</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num attn">2</td><td class="num">66,700</td><td></td><td></td></tr>
+<tr><td><a href="#t0">RegressionSuite</a></td><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">111,334</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">AutomationSuite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">RegressionSuite &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">Test.LeaveTests</td><td><a href="#m0">LeaveSuite</a></td><td rowspan="1">1764410680664</td><td rowspan="1">13672</td></tr><tr class="failedodd"><td rowspan="1">Test.PIMTests</td><td><a href="#m1">PIMSuite</a></td><td rowspan="1">1764410666842</td><td rowspan="1">13808</td></tr><tr><th colspan="4">RegressionSuite &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">Test.LoginTests</td><td><a href="#m2">LoginSuite</a></td><td rowspan="1">1764410627734</td><td rowspan="1">39088</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">AutomationSuite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">RegressionSuite &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">Test.LeaveTests</td><td><a href="#m0">LeaveSuite</a></td><td rowspan="1">1764840166323</td><td rowspan="1">44362</td></tr><tr class="passedodd"><td rowspan="1">Test.LoginTests</td><td><a href="#m1">LoginSuite</a></td><td rowspan="1">1764840099426</td><td rowspan="1">31457</td></tr><tr class="passedeven"><td rowspan="1">Test.PIMTests</td><td><a href="#m2">PIMSuite</a></td><td rowspan="1">1764840130893</td><td rowspan="1">35425</td></tr></tbody>
 </table>
-<h2>RegressionSuite</h2><h3 id="m0">Test.LeaveTests#LeaveSuite</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.name: username (tried for 10 second(s) with 500 milliseconds interval)
-Build info: version: &apos;4.36.0&apos;, revision: &apos;6d115cfd87&apos;
-System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 142.0.7444.176, chrome: {chromedriverVersion: 142.0.7444.175 (302067f14a4..., userDataDir: C:\Users\hp\AppData\Local\T...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:65145}, goog:processID: 11648, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:65145/devtoo..., se:cdpVersion: 142.0.7444.176, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 2cc4f1c48da886e915dfb69e2d37e6d6
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-	at POM.POMlogin.waitForLoginPage(POMlogin.java:91)
-	at utilites.MainFunctions.performLoginWithoutLogout(MainFunctions.java:69)
-	at Test.LeaveTests.LeaveSuite(LeaveTests.java:71)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at Driver.RegressionDriver.main(RegressionDriver.java:32)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">Test.PIMTests#PIMSuite</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.name: username (tried for 10 second(s) with 500 milliseconds interval)
-Build info: version: &apos;4.36.0&apos;, revision: &apos;6d115cfd87&apos;
-System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 142.0.7444.176, chrome: {chromedriverVersion: 142.0.7444.175 (302067f14a4..., userDataDir: C:\Users\hp\AppData\Local\T...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:65145}, goog:processID: 11648, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:65145/devtoo..., se:cdpVersion: 142.0.7444.176, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 2cc4f1c48da886e915dfb69e2d37e6d6
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-	at POM.POMlogin.waitForLoginPage(POMlogin.java:91)
-	at utilites.MainFunctions.performLoginWithoutLogout(MainFunctions.java:69)
-	at Test.PIMTests.PIMSuite(PIMTests.java:68)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at Driver.RegressionDriver.main(RegressionDriver.java:32)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m2">Test.LoginTests#LoginSuite</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>RegressionSuite</h2><h3 id="m0">Test.LeaveTests#LeaveSuite</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">Test.LoginTests#LoginSuite</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">Test.PIMTests#PIMSuite</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

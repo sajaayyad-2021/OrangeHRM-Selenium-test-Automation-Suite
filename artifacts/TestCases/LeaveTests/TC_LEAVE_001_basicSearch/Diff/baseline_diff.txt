@@ -1,5 +1,18 @@
-___TC_LOG_001_validLogin DIFF___
-Expected: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
-
-Actual  : https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
-Result  : PASS
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+RESULT: PASS
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+RESULT: FAIL
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+RESULT: FAIL
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+RESULT: PASS
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+RESULT: FAIL
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+RESULT: PASS

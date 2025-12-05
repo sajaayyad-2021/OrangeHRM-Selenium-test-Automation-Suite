@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+
 <suite name="AutomationSuite">
+
     <test name="RegressionSuite">
         <classes>
-            <class name="Test.LoginTests">
-                <methods>
-                    <include name="LoginSuite"/>
-                </methods>
-            </class>
-            
-            <class name="Test.PIMTests">
-                <methods>
-                    <include name="PIMSuite"/>
-                </methods>
-            </class>
-            
-            <class name="Test.LeaveTests">
-                <methods>
-                    <include name="LeaveSuite"/>
-                </methods>
-            </class>
+            <class name="Test.LoginTests"/>
+            <class name="Test.PIMTests"/>
+            <class name="Test.LeaveTests"/>
         </classes>
     </test>
+
 </suite>

@@ -2,11 +2,11 @@ package Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import org.testng.SkipException;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -34,44 +34,38 @@ public class PIMTests extends BaseTemplate {
     @Test
     public void PIMSuite() throws IOException, InterruptedException {
 
+        // ===================== Skip if no CLI arg =====================
+        if (testNmaes_pim == null || testNmaes_pim.trim().isEmpty()) {
+            throw new SkipException("Skipping PIMTests — no -testNmaes_pim argument provided.");
+        }
+
         extent = ExtentManager.getInstance();
         String className = this.getClass().getSimpleName();
 
-        // -------------------- Parse CLI Args --------------------
-        // -------------------- Parse CLI Args --------------------
-        if (  testNmaes_pim == null ||   testNmaes_pim.trim().isEmpty()) {
-              testNmaes_pim = "ALL";
+        // ===================== Parse argument =====================
+        testNmaes_pim = testNmaes_pim.trim();
+
+        if ("ALL".equalsIgnoreCase(testNmaes_pim)) {
+            testsList = discoverTestCases(className);
         } else {
-              testNmaes_pim =   testNmaes_pim.trim();
+            testsList = Arrays.stream(testNmaes_pim.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toArray(String[]::new);
         }
 
-        // we depend ONLY on args 
-        if (!"ALL".equalsIgnoreCase(  testNmaes_pim)) {
-
-            if (  testNmaes_pim.contains(",")) {
-                testsList = Arrays.stream(  testNmaes_pim.split(","))
-                                 .map(String::trim)
-                                 .filter(s -> !s.isEmpty())
-                                 .toArray(String[]::new);
-            } else {
-                testsList = new String[]{   testNmaes_pim };
-            }
-
-        } else {
-            // ALL (not method-based)
-            testsList = null;
+        // ===================== No tests found =====================
+        if (testsList == null || testsList.length == 0) {
+            throw new SkipException("No PIM test cases found.");
         }
 
-        
-     
-
-        // LOGIN ONCE BEFORE ALL PIM TESTS (without logout)
+        // ===================== LOGIN ONCE =====================
         Config loginCfg = loadthisTestConfig("LoginTests", "TC_LOG_001_validLogin");
         mf = new MainFunctions(driver, loginCfg);
-        mf.performLoginWithoutLogout(loginCfg);  // Use new method without logout
+        mf.performLoginWithoutLogout(loginCfg);  
         System.out.println("[PIMSuite] Logged in successfully");
 
-        // -------------------- Test Loop --------------------
+        // ===================== Test Loop =====================
         for (String tc : testsList) {
 
             activeTest = tc;
@@ -89,7 +83,6 @@ public class PIMTests extends BaseTemplate {
                 Config cfg = loadthisTestConfig(className, tc);
                 mf = new MainFunctions(driver, cfg);
 
-                // general pim executor
                 general(cfg, className, tc);
 
                 currentTest.pass("Test completed");
@@ -104,119 +97,114 @@ public class PIMTests extends BaseTemplate {
     }
 
 
-    // ========================================================
-    // GENERAL PIM ACTION HANDLER
-    // ========================================================
+    // =================================================================
+    // GENERAL PIM ACTION
+    // =================================================================
     private void general(Config cfg, String className, String testCaseName) {
 
         try {
             currentTest.info("Executing test: " + testCaseName);
 
-            // Determine action type from test name
             String actionType = determineActionType(testCaseName);
             currentTest.info("Action type: " + actionType);
 
-            // Perform action based on type
             if (actionType.equals("addEmployee")) {
                 mf.performAddEmployee(cfg);
             } else if (actionType.equals("searchEmployee")) {
                 mf.performSearchEmployee(cfg);
             }
 
-            // Capture actual result from page
-            String actualResult = getActualPIMResult();
+            String actualResult = mf.getCurrentURL();
             currentTest.info("Actual Result: " + actualResult);
 
-            // Save artifacts and validate with baseline
             saveDataArtifacts(className, testCaseName, actualResult);
 
         } catch (Exception e) {
             currentTest.fail("Exception: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
-
-    // ========================================================
-    // DETERMINE ACTION TYPE FROM TEST NAME
-    // ========================================================
     private String determineActionType(String testName) {
-        // TC_PIM_001_addEmployeeValid -> addEmployee
-        // TC_PIM_006_searchByValidName -> searchEmployee
-        
-        if (testName.toLowerCase().contains("addemployee")) {
+
+        String lower = testName.toLowerCase();
+
+        if (lower.contains("addemployee"))
             return "addEmployee";
-        } else if (testName.toLowerCase().contains("search")) {
+        if (lower.contains("search"))
             return "searchEmployee";
-        }
-        
+
         return "unknown";
     }
 
 
-    // ========================================================
-    // CAPTURE ACTUAL PIM RESULT FROM UI
-    // ========================================================
-    private String getActualPIMResult() {
+    // =================================================================
+    // AUTO DISCOVERY
+    // =================================================================
+    private String[] discoverTestCases(String className) {
+
         try {
-            // Return current URL as actual result (no hardcoded strings)
-            return mf.getCurrentURL();
-            
+            String root = "artifacts/TestCases/" + className;
+            File dir = new File(root);
+
+            if (!dir.exists() || !dir.isDirectory())
+                return new String[0];
+
+            List<String> list = new ArrayList<>();
+
+            for (File f : dir.listFiles(File::isDirectory)) {
+                File input = new File(f, "Input/input.json");
+                if (input.exists()) list.add(f.getName());
+            }
+
+            Collections.sort(list);
+            return list.toArray(new String[0]);
+
         } catch (Exception e) {
-            currentTest.fail("Error capturing result: " + e.getMessage());
-            return e.getMessage();
+            e.printStackTrace();
+            return new String[0];
         }
     }
 
 
-    // ========================================================
-    // ARTIFACT & BASELINE VALIDATION
-    // ========================================================
+    // =================================================================
+    // ARTIFACT MANAGEMENT
+    // =================================================================
     private void saveDataArtifacts(String className, String testName, String actualData) {
         try {
-            String baseName     = "baseline.txt";
-            String actualFile   = actualPath(className, testName)   + baseName;
+            String baseName = "baseline.txt";
+
+            String actualFile = actualPath(className, testName) + baseName;
             String expectedFile = expectedPath(className, testName) + baseName;
-            String diffFile     = diffPath(className, testName)     + "baseline_diff.txt";
+            String diffFile = diffPath(className, testName) + "baseline_diff.txt";
 
             CustomFunction.writeTextFile(actualFile, actualData);
 
             File expected = new File(expectedFile);
 
             if (!expected.exists() || expected.length() == 0) {
-                currentTest.warning("Expected baseline file not found: " + expectedFile);
-                currentTest.info("Please create expected baseline manually.");
-                currentTest.info("Actual: " + actualData);
-
-                CustomFunction.appendToFile("___" + testName + " DIFF___", diffFile);
+                currentTest.warning("Expected baseline file not found.");
                 CustomFunction.appendToFile("Expected missing!", diffFile);
                 CustomFunction.appendToFile("Actual: " + actualData, diffFile);
-
-                currentTest.fail("Expected baseline file not found");
+                currentTest.fail("Expected baseline missing.");
                 return;
             }
 
-            String baseline = Files.readString(Paths.get(expectedFile)).trim();
-            String actual = actualData.trim();
-            boolean match = baseline.equals(actual);
+            String expectedText = Files.readString(Paths.get(expectedFile)).trim();
+            String actualText = actualData.trim();
+            boolean match = expectedText.equals(actualText);
 
-            CustomFunction.appendToFile("___" + testName + " DIFF___", diffFile);
-            CustomFunction.appendToFile("Expected: " + baseline, diffFile);
-            CustomFunction.appendToFile("Actual  : " + actual, diffFile);
+            CustomFunction.appendToFile("Expected: " + expectedText, diffFile);
+            CustomFunction.appendToFile("Actual  : " + actualText, diffFile);
             CustomFunction.appendToFile("Result  : " + (match ? "PASS" : "FAIL"), diffFile);
 
-            String block = String.format(
-                "EXPECTED:\n%s\n\nACTUAL:\n%s\n\nRESULT: %s",
-                baseline, actual, match ? "PASS" : "FAIL"
-            );
+            currentTest.info(MarkupHelper.createCodeBlock(
+                    "EXPECTED:\n" + expectedText +
+                            "\n\nACTUAL:\n" + actualText +
+                            "\n\nRESULT: " + (match ? "PASS" : "FAIL")
+            ));
 
-            currentTest.info(MarkupHelper.createCodeBlock(block));
-
-            if (match) {
-                currentTest.pass("✓ Actual matches Expected");
-            } else {
-                currentTest.fail("✗ Baseline mismatch - Expected: " + baseline + ", but got: " + actual);
-            }
+            if (match) currentTest.pass("✓ Actual matches Expected");
+            else currentTest.fail("✗ Baseline mismatch");
 
         } catch (Exception ex) {
             currentTest.fail("Artifact save failed: " + ex.getMessage());

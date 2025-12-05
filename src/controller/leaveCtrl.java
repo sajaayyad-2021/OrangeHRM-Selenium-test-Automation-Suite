@@ -1,8 +1,7 @@
 package controller;
 
-
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriverException;
@@ -13,133 +12,110 @@ import POM.POMLeave;
 
 public class leaveCtrl {
 
-    // 1) open page
+    // ========== 1) OPEN LEAVE LIST PAGE ==========
 	public static void openLeaveList(WebDriver driver, WebDriverWait wait) {
 
-	    POMLeave.leaveMenu(driver).click();
-	    //System.out.println("[leave] clicked Leave menu");
+	    System.out.println("[LEAVE] Opening Leave List...");
+
+	    // 1. Ensure we are on dashboard
+	    driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index");
 
 	    wait.until(ExpectedConditions.visibilityOfElementLocated(
-	        By.xpath("//h6[contains(@class,'oxd-topbar-header-breadcrumb-module') and normalize-space()='Leave']")
+	            By.xpath("//span[normalize-space()='Dashboard']")
 	    ));
 
-	    WebElement leaveListTab= wait.until(ExpectedConditions.elementToBeClickable(
-	        By.xpath(
-	            "//a[normalize-space()='Leave List' or contains(@href,'viewLeaveList')] | " +
-	            "//button[normalize-space()='Leave List']"
-	        )
-	    ));
-	    leaveListTab.click();
-	    System.out.println("[leave] opened Leave List tab");
-
-
-	    wait.until(ExpectedConditions.visibilityOfElementLocated(//wait
-	        By.xpath("//label[normalize-space()='From Date']")
-	    ));
-
+	    // 2. Wait for the sidebar to load
 	    wait.until(ExpectedConditions.visibilityOfElementLocated(
-	        By.xpath("//label[normalize-space()='From Date']/ancestor::div[contains(@class,'oxd-input-group')]//input")
+	            By.xpath("//aside[contains(@class,'oxd-sidepanel')]")
 	    ));
 
-	   // System.out.println("[leave] Leave  page loaded");
-	}
+	    // 3. Click Leave tab
+	    WebElement leaveTab = wait.until(ExpectedConditions.elementToBeClickable(
+	            By.xpath("//span[normalize-space()='Leave']")
+	    ));
+	    leaveTab.click();
 
-    // 2) from date
-	public static void fillFromDate(WebDriver driver, WebDriverWait wait, String fromDate) {
+	    System.out.println("[LEAVE] Leave tab clicked");
 
-	    By fromIcon = By.xpath(
-	        "//label[text()='From Date']" +
-	        "/ancestor::div[contains(@class,'oxd-input-group')]" +
-	        "//i[contains(@class,'bi-calendar')]"
-	    );
-
-	    safeClickWithScroll(driver, wait, fromIcon);
-
-	    selectDateWithPicker(driver, wait, fromDate);
-
-	    System.out.println("[leave] from date picked: " + fromDate);
-
-	    wait.until(ExpectedConditions.invisibilityOfElementLocated(
-	        By.xpath("//div[contains(@class,'oxd-date-input-calendar')]")
+	    // 4. Wait for the Leave List page
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(
+	            By.xpath("//h5[normalize-space()='Leave List']")
 	    ));
 	}
 
 
-    // 3) to date
-	public static void fillToDate(WebDriver driver, WebDriverWait wait, String toDate) {
+    // ========== 2) FILL FROM DATE ==========
+    public static void fillFromDate(WebDriver driver, WebDriverWait wait, String fromDate) {
+        WebElement fromIcon = wait.until(ExpectedConditions.elementToBeClickable(
+            POMLeave.fromDateIcon(driver)
+        ));
+        safeClickWithScroll(driver, wait, fromIcon);
 
-	    By toIcon = By.xpath(
-	        "//label[text()='To Date']" +
-	        "/ancestor::div[contains(@class,'oxd-input-group')]" +
-	        "//i[contains(@class,'bi-calendar')]"
-	    );
+        selectDateWithPicker(driver, wait, fromDate);
+        System.out.println("[leave] from date picked: " + fromDate);
 
-	    safeClickWithScroll(driver, wait, toIcon);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(POMLeave.datePicker()));
+    }
 
-	    selectDateWithPicker(driver, wait, toDate);
+    // ========== 3) FILL TO DATE ==========
+    public static void fillToDate(WebDriver driver, WebDriverWait wait, String toDate) {
+        WebElement toIcon = wait.until(ExpectedConditions.elementToBeClickable(
+            POMLeave.toDateIcon(driver)
+        ));
+        safeClickWithScroll(driver, wait, toIcon);
 
-	    //System.out.println("[leave] To Date picked: " + toDate);
+        selectDateWithPicker(driver, wait, toDate);
+        System.out.println("[leave] to date picked: " + toDate);
 
-	    wait.until(ExpectedConditions.invisibilityOfElementLocated(
-	        By.xpath("//div[contains(@class,'oxd-date-input-calendar')]")
-	    ));
-	}
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(POMLeave.datePicker()));
+    }
 
-    private static void selectDateWithPicker(WebDriver driver, WebDriverWait wait, String Date) {
-
-        String[] parts = Date.split("-");
-        String year  = parts[0];
+    // ========== HELPER: SELECT DATE WITH PICKER ==========
+    private static void selectDateWithPicker(WebDriver driver, WebDriverWait wait, String date) {
+        String[] parts = date.split("-");
+        String year = parts[0];
         String month = parts[1];
-        String day   = parts[2];
+        String day = parts[2];
 
         String monthName = monthNumberToName(month);
         String dayZero = String.valueOf(Integer.parseInt(day));
 
-        WebElement datePicker = wait.until(ExpectedConditions.visibilityOfElementLocated(
-            By.xpath("//div[contains(@class,'oxd-date-input-calendar')]")
-        ));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(POMLeave.datePicker()));
 
+        // Select year
         try {
-            WebElement yearSelector = datePicker.findElement(
-                By.xpath(".//div[contains(@class,'oxd-calendar-selector-year')]")
-            );
+            WebElement yearSelector = POMLeave.yearSelector(driver);
             yearSelector.click();
 
             WebElement targetYear = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath(
-                    "//li[contains(@class,'oxd-calendar-dropdown--option') and normalize-space()='" + year + "']"
-                )
+                POMLeave.yearOption(driver, year)
             ));
             targetYear.click();
         } catch (WebDriverException e) {
-           // System.out.println("[leave] Year dropdown not found, skipped year selection.");
+            System.out.println("[leave] Year dropdown not found, skipped year selection.");
         }
 
+        // Select month
         try {
-            WebElement monthSelector = datePicker.findElement(
-                By.xpath(".//div[contains(@class,'oxd-calendar-selector-month')]")
-            );
+            WebElement monthSelector = POMLeave.monthSelector(driver);
             monthSelector.click();
-//target month
-            WebElement Month  = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath(
-                    "//li[contains(@class,'oxd-calendar-dropdown--option') and normalize-space()='" + monthName + "']"
-                )
+
+            WebElement targetMonth = wait.until(ExpectedConditions.elementToBeClickable(
+                POMLeave.monthOption(driver, monthName)
             ));
-            Month.click();
+            targetMonth.click();
         } catch (WebDriverException e) {
-          //  System.out.println("[leave] month not found");
+            System.out.println("[leave] Month dropdown not found, skipped month selection.");
         }
 
+        // Select day
         WebElement dayButton = wait.until(ExpectedConditions.elementToBeClickable(
-            By.xpath(
-                "//div[contains(@class,'oxd-calendar-date') or contains(@class,'oxd-calendar-day')]" +
-                "[normalize-space()='" + dayZero + "']"
-            )
+            POMLeave.dayButton(driver, dayZero)
         ));
         dayButton.click();
     }
 
+    // ========== HELPER: MONTH NUMBER TO NAME ==========
     private static String monthNumberToName(String mm) {
         switch (mm) {
             case "01": return "January";
@@ -154,105 +130,94 @@ public class leaveCtrl {
             case "10": return "October";
             case "11": return "November";
             case "12": return "December";
-            default:    return "January";
+            default: return "January";
         }
     }
 
-    // 4) employee
-    public static void fillEmployeeName(WebDriver driver, String empname) {
-        WebElement empInput = POMLeave.employeeNameInput(driver);
+    // ========== 4) FILL EMPLOYEE NAME ==========
+    public static void fillEmployeeName(WebDriver driver, WebDriverWait wait, String empName) {
+        WebElement empInput = wait.until(ExpectedConditions.visibilityOf(
+            POMLeave.employeeNameInput(driver)
+        ));
         empInput.clear();
-        empInput.sendKeys(empname);
-    //    System.out.println("[leave] Employee name entered: " + empname);
+        empInput.sendKeys(empName);
+        System.out.println("[leave] Employee name entered: " + empName);
     }
 
-    // 5) status dropdown
+    // ========== 5) SELECT STATUS ==========
     public static void selectStatus(WebDriver driver, WebDriverWait wait, String statusText) {
-
-        By statusCaretLocator = By.xpath(
-            "//label[text()='Show Leave with Status']" +
-            "/ancestor::div[contains(@class,'oxd-input-group')]" +
-            "//i[contains(@class,'oxd-icon')]"
-        );
-
-        safeClickWithScroll(driver, wait, statusCaretLocator);
+        WebElement statusIcon = wait.until(ExpectedConditions.elementToBeClickable(
+            POMLeave.statusDropdownIcon(driver)
+        ));
+        safeClickWithScroll(driver, wait, statusIcon);
         System.out.println("[leave] opened Status dropdown");
 
         selectDropdownOptionByText(driver, wait, statusText);
         System.out.println("[leave] Status selected: " + statusText);
     }
 
-    // 6) leave type dropdown
+    // ========== 6) SELECT LEAVE TYPE ==========
     public static void selectLeaveType(WebDriver driver, WebDriverWait wait, String leaveTypeText) {
-
-        By leaveTypeCaretLocator = By.xpath(
-            "//label[text()='Leave Type']" +
-            "/ancestor::div[contains(@class,'oxd-input-group')]" +
-            "//i[contains(@class,'oxd-icon')]"
-        );
-
-        safeClickWithScroll(driver, wait, leaveTypeCaretLocator);
+        WebElement leaveTypeIcon = wait.until(ExpectedConditions.elementToBeClickable(
+            POMLeave.leaveTypeDropdownIcon(driver)
+        ));
+        safeClickWithScroll(driver, wait, leaveTypeIcon);
         System.out.println("[leave] opened Leave Type dropdown");
 
         selectDropdownOptionByText(driver, wait, leaveTypeText);
         System.out.println("[leave] Leave Type selected: " + leaveTypeText);
     }
 
-    // 7) sub unit dropdown
+    // ========== 7) SELECT SUB UNIT ==========
     public static void selectSubUnit(WebDriver driver, WebDriverWait wait, String subUnitText) {
-
-        By subUnitCaretLocator = By.xpath(
-            "//label[text()='Sub Unit']" +
-            "/ancestor::div[contains(@class,'oxd-input-group')]" +
-            "//i[contains(@class,'oxd-icon')]"
-        );
-
-        safeClickWithScroll(driver, wait, subUnitCaretLocator);
+        WebElement subUnitIcon = wait.until(ExpectedConditions.elementToBeClickable(
+            POMLeave.subUnitDropdownIcon(driver)
+        ));
+        safeClickWithScroll(driver, wait, subUnitIcon);
         System.out.println("[leave] opened Sub Unit dropdown");
 
         selectDropdownOptionByText(driver, wait, subUnitText);
         System.out.println("[leave] Sub Unit selected: " + subUnitText);
     }
-  
+
+    // ========== HELPER: SELECT DROPDOWN OPTION ==========
     private static void selectDropdownOptionByText(WebDriver driver, WebDriverWait wait, String optionText) {
-
-        String optionXPath = String.format(
-            "//div[contains(@class,'oxd-select-option')]//span[normalize-space()='%s']",
-            optionText
-        );
-
-        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(optionXPath)));
+        WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
+            POMLeave.dropdownOption(driver, optionText)
+        ));
         option.click();
     }
 
-    // 8) actions
-    public static void clickSearch(WebDriver driver) {
-        POMLeave.searchButton(driver).click();
-        System.out.println("[leave] search button");
+    // ========== 8) CLICK SEARCH BUTTON ==========
+    public static void clickSearch(WebDriver driver, WebDriverWait wait) {
+        WebElement searchBtn = wait.until(ExpectedConditions.elementToBeClickable(
+            POMLeave.searchButton(driver)
+        ));
+        searchBtn.click();
+        System.out.println("[leave] clicked Search button");
     }
 
-    public static void clickReset(WebDriver driver) {
-        POMLeave.resetButton(driver).click();
-        System.out.println("[leave]Reset button");
+    // ========== 9) CLICK RESET BUTTON ==========
+    public static void clickReset(WebDriver driver, WebDriverWait wait) {
+        WebElement resetBtn = wait.until(ExpectedConditions.elementToBeClickable(
+            POMLeave.resetButton(driver)
+        ));
+        resetBtn.click();
+        System.out.println("[leave] clicked Reset button");
     }
 
-private static void safeClickWithScroll(WebDriver driver, WebDriverWait wait, By locator) {
+    // ========== HELPER: SAFE CLICK WITH SCROLL ==========
+    private static void safeClickWithScroll(WebDriver driver, WebDriverWait wait, WebElement element) {
+        ((JavascriptExecutor) driver).executeScript(
+            "arguments[0].scrollIntoView({block: 'center'});", element
+        );
 
-    WebElement el = wait.until(ExpectedConditions.elementToBeClickable(locator));
-
-   
-    ((org.openqa.selenium.JavascriptExecutor) driver)
-        .executeScript("arguments[0].scrollIntoView({block: 'center'});", el);
-
-   
-    try {
-        el.click();
-        return;
-    } catch (WebDriverException e) {
-        System.out.println("[leave][safeClickWithScroll] normal click failed, trying JS click: " + e.getClass().getSimpleName());
+        try {
+            element.click();
+        } catch (WebDriverException e) {
+            System.out.println("[leave][safeClickWithScroll] Normal click failed, trying JS click: " 
+                + e.getClass().getSimpleName());
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        }
     }
-
-    ((org.openqa.selenium.JavascriptExecutor) driver)
-        .executeScript("arguments[0].click();", el);
-}
 }

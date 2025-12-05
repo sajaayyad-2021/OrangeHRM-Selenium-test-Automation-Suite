@@ -1,1 +1,1 @@
-RESET_FAIL
+https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList

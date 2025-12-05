@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-AutomationSuite" class="navigator-link">
-              <span class="suite-name border-failed">AutomationSuite</span>
+              <span class="suite-name border-passed">AutomationSuite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -92,26 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods, 2 failed,   1 passed</span>
-                  </li>
-                  <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-AutomationSuite" class="hide-methods failed suite-AutomationSuite"> (hide)</a> <!-- hide-methods failed suite-AutomationSuite -->
-                      <a href="#" panel-name="suite-AutomationSuite" class="show-methods failed suite-AutomationSuite"> (show)</a> <!-- show-methods failed suite-AutomationSuite -->
-                    </span>
-                    <div class="method-list-content failed suite-AutomationSuite">
-                      <span>
-                        <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-AutomationSuite" title="Test.LeaveTests" class="method navigator-link" hash-for-method="LeaveSuite">LeaveSuite</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-AutomationSuite" title="Test.PIMTests" class="method navigator-link" hash-for-method="PIMSuite">PIMSuite</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                    </div> <!-- method-list-content failed suite-AutomationSuite -->
+                    <span class="method-stats">3 methods,   3 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -122,7 +103,17 @@
                     <div class="method-list-content passed suite-AutomationSuite">
                       <span>
                         <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-AutomationSuite" title="Test.LeaveTests" class="method navigator-link" hash-for-method="LeaveSuite">LeaveSuite</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-AutomationSuite" title="Test.LoginTests" class="method navigator-link" hash-for-method="LoginSuite">LoginSuite</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-AutomationSuite" title="Test.PIMTests" class="method navigator-link" hash-for-method="PIMSuite">PIMSuite</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-AutomationSuite -->
@@ -137,66 +128,6 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-AutomationSuite" class="panel AutomationSuite">
-          <div class="suite-AutomationSuite-class-failed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">Test.LeaveTests</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="LeaveSuite">
-                  </a> <!-- LeaveSuite -->
-                  <span class="method-name">LeaveSuite</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.name: username (tried for 10 second(s) with 500 milliseconds interval)
-Build info: version: &apos;4.36.0&apos;, revision: &apos;6d115cfd87&apos;
-System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 142.0.7444.176, chrome: {chromedriverVersion: 142.0.7444.175 (302067f14a4..., userDataDir: C:\Users\hp\AppData\Local\T...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:65145}, goog:processID: 11648, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:65145/devtoo..., se:cdpVersion: 142.0.7444.176, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 2cc4f1c48da886e915dfb69e2d37e6d6
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-	at POM.POMlogin.waitForLoginPage(POMlogin.java:91)
-	at utilites.MainFunctions.performLoginWithoutLogout(MainFunctions.java:69)
-	at Test.LeaveTests.LeaveSuite(LeaveTests.java:71)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at Driver.RegressionDriver.main(RegressionDriver.java:32)
-... Removed 22 stack frames
-</div> <!-- stack-trace -->
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-AutomationSuite-class-failed -->
-          <div class="suite-AutomationSuite-class-failed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">Test.PIMTests</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="PIMSuite">
-                  </a> <!-- PIMSuite -->
-                  <span class="method-name">PIMSuite</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.name: username (tried for 10 second(s) with 500 milliseconds interval)
-Build info: version: &apos;4.36.0&apos;, revision: &apos;6d115cfd87&apos;
-System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;23.0.1&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 142.0.7444.176, chrome: {chromedriverVersion: 142.0.7444.175 (302067f14a4..., userDataDir: C:\Users\hp\AppData\Local\T...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:65145}, goog:processID: 11648, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:65145/devtoo..., se:cdpVersion: 142.0.7444.176, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 2cc4f1c48da886e915dfb69e2d37e6d6
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-	at POM.POMlogin.waitForLoginPage(POMlogin.java:91)
-	at utilites.MainFunctions.performLoginWithoutLogout(MainFunctions.java:69)
-	at Test.PIMTests.PIMSuite(PIMTests.java:68)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-	at Driver.RegressionDriver.main(RegressionDriver.java:32)
-... Removed 22 stack frames
-</div> <!-- stack-trace -->
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-AutomationSuite-class-failed -->
           <div class="suite-AutomationSuite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
@@ -208,6 +139,36 @@ Session ID: 2cc4f1c48da886e915dfb69e2d37e6d6
                   <a name="LoginSuite">
                   </a> <!-- LoginSuite -->
                   <span class="method-name">LoginSuite</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-AutomationSuite-class-passed -->
+          <div class="suite-AutomationSuite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">Test.LeaveTests</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="LeaveSuite">
+                  </a> <!-- LeaveSuite -->
+                  <span class="method-name">LeaveSuite</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-AutomationSuite-class-passed -->
+          <div class="suite-AutomationSuite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">Test.PIMTests</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="PIMSuite">
+                  </a> <!-- PIMSuite -->
+                  <span class="method-name">PIMSuite</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -224,21 +185,9 @@ Session ID: 2cc4f1c48da886e915dfb69e2d37e6d6
 &lt;suite name=&quot;AutomationSuite&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;RegressionSuite&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Test.LoginTests&quot;&gt;
-        &lt;methods&gt;
-          &lt;include name=&quot;LoginSuite&quot;/&gt;
-        &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- Test.LoginTests --&gt;
-      &lt;class name=&quot;Test.PIMTests&quot;&gt;
-        &lt;methods&gt;
-          &lt;include name=&quot;PIMSuite&quot;/&gt;
-        &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- Test.PIMTests --&gt;
-      &lt;class name=&quot;Test.LeaveTests&quot;&gt;
-        &lt;methods&gt;
-          &lt;include name=&quot;LeaveSuite&quot;/&gt;
-        &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- Test.LeaveTests --&gt;
+      &lt;class name=&quot;Test.LoginTests&quot;/&gt;
+      &lt;class name=&quot;Test.PIMTests&quot;/&gt;
+      &lt;class name=&quot;Test.LeaveTests&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- RegressionSuite --&gt;
 &lt;/suite&gt; &lt;!-- AutomationSuite --&gt;
@@ -280,17 +229,17 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(3);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'LoginSuite')
-data.setCell(0, 2, 'Test.LoginTests')
-data.setCell(0, 3, 39088);
+data.setCell(0, 1, 'LeaveSuite')
+data.setCell(0, 2, 'Test.LeaveTests')
+data.setCell(0, 3, 44362);
 data.setCell(1, 0, 1)
 data.setCell(1, 1, 'PIMSuite')
 data.setCell(1, 2, 'Test.PIMTests')
-data.setCell(1, 3, 13808);
+data.setCell(1, 3, 35425);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'LeaveSuite')
-data.setCell(2, 2, 'Test.LeaveTests')
-data.setCell(2, 3, 13672);
+data.setCell(2, 1, 'LoginSuite')
+data.setCell(2, 2, 'Test.LoginTests')
+data.setCell(2, 3, 31457);
 window.suiteTableData['AutomationSuite']= { tableData: data, tableDiv: 'times-div-AutomationSuite'}
 return data;
 }
@@ -314,20 +263,20 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
-              <span class="ignored-class-name">Test.LeaveTests</span>
+              <span class="ignored-class-name">Test.PIMTests</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">beforeSuiteSetup</span>
-                <br/>
                 <span class="ignored-method-name">afterSuiteCleanup</span>
+                <br/>
+                <span class="ignored-method-name">beforeSuiteSetup</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
             <div class="ignored-class-div">
-              <span class="ignored-class-name">Test.PIMTests</span>
+              <span class="ignored-class-name">Test.LeaveTests</span>
               <div class="ignored-methods-div">
-                <span class="ignored-method-name">beforeSuiteSetup</span>
-                <br/>
                 <span class="ignored-method-name">afterSuiteCleanup</span>
+                <br/>
+                <span class="ignored-method-name">beforeSuiteSetup</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -344,46 +293,42 @@ return data;
                 <span class="method-name">beforeSuiteSetup</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
-              <div class="configuration-method before">
-                <span class="method-name">getMethodname(public void Test.LoginTests.LoginSuite() throws java.io.IOException,java.lang.InterruptedException)</span>
-                <span class="method-start">3458 ms</span>
-              </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">LoginSuite</span>
-                <span class="method-start">3461 ms</span>
+                <span class="method-start">7312 ms</span>
               </div> <!-- test-method -->
+              <div class="configuration-method before">
+                <span class="method-name">getMethodname(public void Test.LoginTests.LoginSuite() throws java.io.IOException,java.lang.InterruptedException)</span>
+                <span class="method-start">7312 ms</span>
+              </div> <!-- configuration-method before -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">Test.PIMTests</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">getMethodname(public void Test.PIMTests.PIMSuite() throws java.io.IOException,java.lang.InterruptedException)</span>
-                <span class="method-start">42563 ms</span>
+                <span class="method-start">38777 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
                 <span class="method-name">PIMSuite</span>
-                <span class="method-start">42569 ms</span>
+                <span class="method-start">38779 ms</span>
               </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">Test.LeaveTests</div> <!-- chronological-class-name -->
-              <div class="test-method">
-                <img src="failed.png">
-                </img>
-                <span class="method-name">LeaveSuite</span>
-                <span class="method-start">56391 ms</span>
-              </div> <!-- test-method -->
               <div class="configuration-method before">
                 <span class="method-name">getMethodname(public void Test.LeaveTests.LeaveSuite() throws java.io.IOException,java.lang.InterruptedException)</span>
-                <span class="method-start">56391 ms</span>
+                <span class="method-start">74208 ms</span>
               </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">LeaveSuite</span>
+                <span class="method-start">74209 ms</span>
+              </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">Test.LoginTests</div> <!-- chronological-class-name -->
               <div class="configuration-suite after">
                 <span class="method-name">afterSuiteCleanup</span>
-                <span class="method-start">70298 ms</span>
+                <span class="method-start">118643 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

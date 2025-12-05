@@ -1,6 +1,6 @@
-EXPECTED:
-https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
-
-ACTUAL:
-CRASH
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+RESULT: PASS
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
 RESULT: FAIL
