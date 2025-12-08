@@ -27,6 +27,27 @@ pipeline {
                 '''
             }
         }
+    }
 
+    post {
+        always {
+            emailext(
+                subject: "OrangeHRM Automation Result - Build #${BUILD_NUMBER}",
+                body: """
+Build Status: ${currentBuild.currentResult}
+
+Project: OrangeHRM Automation
+Build Number: ${BUILD_NUMBER}
+
+Jenkins Build Link:
+${BUILD_URL}
+
+Extent Report Attached.
+""",
+                to: "sajayaser085@gmail.com",
+                attachmentsPattern: "test-output/Reports/*.html",
+                mimeType: 'text/html'
+            )
+        }
     }
 }
