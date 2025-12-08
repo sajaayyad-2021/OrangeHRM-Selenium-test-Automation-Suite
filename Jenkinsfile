@@ -16,16 +16,18 @@ pipeline {
             }
         }
 
-        stage('Run Automation') {
-            steps {
-                bat '''
-                java -cp "bin;lib/*" Driver.RegressionDriver ^
-                -out artifacts ^
-                -browser chrome ^
-                -testNmaes_login ALL ^
-                -url https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
-                '''
-            }
+      stage('Run Automation') {
+    steps {
+        bat '''
+        java -cp "bin" Driver.RegressionDriver ^
+        -out artifacts ^
+        -browser chrome ^
+        -testNmaes_login ALL ^
+        -url https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
+        '''
+    }
+}
+
         }
     }
 }
