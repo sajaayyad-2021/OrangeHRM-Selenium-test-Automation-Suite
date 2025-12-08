@@ -29,25 +29,29 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            emailext(
-                subject: "OrangeHRM Automation Result - Build #${BUILD_NUMBER}",
-                body: """
-Build Status: ${currentBuild.currentResult}
-
-Project: OrangeHRM Automation
-Build Number: ${BUILD_NUMBER}
-
-Jenkins Build Link:
-${BUILD_URL}
-
-Extent Report Attached.
-""",
-                to: "sajayaser085@gmail.com",
-                attachmentsPattern: "test-output/Reports/*.html",
-                mimeType: 'text/html'
-            )
-        }
+   post {
+    always {
+      
+        archiveArtifacts artifacts: 'test-output/Reports/*.html', fingerprint: true
     }
+
+    success {
+        emailext(
+            subject: " OrangeHRM Regression PASSED",
+            to: "sajayaser085@gmail.com",
+            body: "Hi,\n\nAll tests passed successfully.\n\nAttached is the latest Extent Report.\n\nRegards,\nJenkins",
+            attachmentsPattern: 'test-output/Reports/*.html'
+        )
+    }
+
+    failure {
+        emailext(
+            subject: " OrangeHRM Regression FAILED",
+            to: "sajayaser085@gmail.com",
+            body: "Hi,\n\nSome tests failed. Please check the attached Extent Report.\n\nRegards,\nJenkins",
+            attachmentsPattern: 'test-output/Reports/*.html'
+        )
+    }
+}
+
 }
