@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods,   3 passed</span>
+                    <span class="method-stats">1 method,   1 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -104,16 +104,6 @@
                       <span>
                         <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-AutomationSuite" title="Test.LeaveTests" class="method navigator-link" hash-for-method="LeaveSuite">LeaveSuite</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-AutomationSuite" title="Test.LoginTests" class="method navigator-link" hash-for-method="LoginSuite">LoginSuite</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-AutomationSuite" title="Test.PIMTests" class="method navigator-link" hash-for-method="PIMSuite">PIMSuite</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-AutomationSuite -->
@@ -131,21 +121,6 @@
           <div class="suite-AutomationSuite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">Test.LoginTests</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="LoginSuite">
-                  </a> <!-- LoginSuite -->
-                  <span class="method-name">LoginSuite</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-AutomationSuite-class-passed -->
-          <div class="suite-AutomationSuite-class-passed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
               <span class="class-name">Test.LeaveTests</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
@@ -154,21 +129,6 @@
                   <a name="LeaveSuite">
                   </a> <!-- LeaveSuite -->
                   <span class="method-name">LeaveSuite</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-AutomationSuite-class-passed -->
-          <div class="suite-AutomationSuite-class-passed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">Test.PIMTests</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="PIMSuite">
-                  </a> <!-- PIMSuite -->
-                  <span class="method-name">PIMSuite</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -185,8 +145,6 @@
 &lt;suite name=&quot;AutomationSuite&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;RegressionSuite&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Test.LoginTests&quot;/&gt;
-      &lt;class name=&quot;Test.PIMTests&quot;/&gt;
       &lt;class name=&quot;Test.LeaveTests&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- RegressionSuite --&gt;
@@ -201,7 +159,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">RegressionSuite (3 classes)</span>
+                <span class="test-name">RegressionSuite (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -227,24 +185,16 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(3);
+data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'LeaveSuite')
 data.setCell(0, 2, 'Test.LeaveTests')
-data.setCell(0, 3, 44362);
-data.setCell(1, 0, 1)
-data.setCell(1, 1, 'PIMSuite')
-data.setCell(1, 2, 'Test.PIMTests')
-data.setCell(1, 3, 35425);
-data.setCell(2, 0, 2)
-data.setCell(2, 1, 'LoginSuite')
-data.setCell(2, 2, 'Test.LoginTests')
-data.setCell(2, 3, 31457);
+data.setCell(0, 3, 45158);
 window.suiteTableData['AutomationSuite']= { tableData: data, tableDiv: 'times-div-AutomationSuite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <span class="suite-total-time">Total running time: 45 seconds</span>
               <div id="times-div-AutomationSuite">
               </div> <!-- times-div-AutomationSuite -->
             </div> <!-- times-div -->
@@ -259,27 +209,9 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-AutomationSuite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">4 ignored methods</span>
+            <span class="header-content">0 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
-            <div class="ignored-class-div">
-              <span class="ignored-class-name">Test.PIMTests</span>
-              <div class="ignored-methods-div">
-                <span class="ignored-method-name">afterSuiteCleanup</span>
-                <br/>
-                <span class="ignored-method-name">beforeSuiteSetup</span>
-                <br/>
-              </div> <!-- ignored-methods-div -->
-            </div> <!-- ignored-class-div -->
-            <div class="ignored-class-div">
-              <span class="ignored-class-name">Test.LeaveTests</span>
-              <div class="ignored-methods-div">
-                <span class="ignored-method-name">afterSuiteCleanup</span>
-                <br/>
-                <span class="ignored-method-name">beforeSuiteSetup</span>
-                <br/>
-              </div> <!-- ignored-methods-div -->
-            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-AutomationSuite" class="panel">
@@ -288,47 +220,22 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">Test.LoginTests</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">Test.LeaveTests</div> <!-- chronological-class-name -->
               <div class="configuration-suite before">
                 <span class="method-name">beforeSuiteSetup</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
-              <div class="test-method">
-                <span class="method-name">LoginSuite</span>
-                <span class="method-start">7312 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method before">
-                <span class="method-name">getMethodname(public void Test.LoginTests.LoginSuite() throws java.io.IOException,java.lang.InterruptedException)</span>
-                <span class="method-start">7312 ms</span>
-              </div> <!-- configuration-method before -->
-            </div> <!-- chronological-class -->
-            <div class="chronological-class">
-              <div class="chronological-class-name">Test.PIMTests</div> <!-- chronological-class-name -->
-              <div class="configuration-method before">
-                <span class="method-name">getMethodname(public void Test.PIMTests.PIMSuite() throws java.io.IOException,java.lang.InterruptedException)</span>
-                <span class="method-start">38777 ms</span>
-              </div> <!-- configuration-method before -->
-              <div class="test-method">
-                <span class="method-name">PIMSuite</span>
-                <span class="method-start">38779 ms</span>
-              </div> <!-- test-method -->
-            </div> <!-- chronological-class -->
-            <div class="chronological-class">
-              <div class="chronological-class-name">Test.LeaveTests</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">getMethodname(public void Test.LeaveTests.LeaveSuite() throws java.io.IOException,java.lang.InterruptedException)</span>
-                <span class="method-start">74208 ms</span>
+                <span class="method-start">9306 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">LeaveSuite</span>
-                <span class="method-start">74209 ms</span>
+                <span class="method-start">9326 ms</span>
               </div> <!-- test-method -->
-            </div> <!-- chronological-class -->
-            <div class="chronological-class">
-              <div class="chronological-class-name">Test.LoginTests</div> <!-- chronological-class-name -->
               <div class="configuration-suite after">
                 <span class="method-name">afterSuiteCleanup</span>
-                <span class="method-start">118643 ms</span>
+                <span class="method-start">54634 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

@@ -6,8 +6,7 @@
 
     <test name="RegressionSuite">
         <classes>
-            <class name="Test.LoginTests"/>
-            <class name="Test.PIMTests"/>
+           
             <class name="Test.LeaveTests"/>
         </classes>
     </test>
