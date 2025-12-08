@@ -16,10 +16,10 @@ pipeline {
             }
         }
 
-        stage('Run Automation') {
+        stage('Run Automation JAR') {
             steps {
                 bat '''
-                java -cp "bin" Driver.RegressionDriver ^
+                java -jar automation.jar ^
                 -out artifacts ^
                 -browser chrome ^
                 -testNmaes_login ALL ^
