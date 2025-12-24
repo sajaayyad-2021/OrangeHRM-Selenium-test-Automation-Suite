@@ -511,7 +511,7 @@ Beautiful HTML reports with:
 - Execution timeline
 
 **Location:** `target/extent-reports/index.html`
-<img width="1360" height="643" alt="image" src="https://github.com/user-attachments/assets/18c91fea-c967-401c-83bd-02c692b5cb3b" />
+
 
 ### TestNG Reports
 
@@ -521,7 +521,7 @@ Standard TestNG HTML reports:
 - Failed tests details
 
 **Location:** `test-output/index.html`
-
+<img width="1360" height="643" alt="image" src="https://github.com/user-attachments/assets/18c91fea-c967-401c-83bd-02c692b5cb3b" />
 ### Database Reports
 
 Query database for custom reports:
@@ -529,6 +529,7 @@ Query database for custom reports:
 - Flaky test detection
 - Performance analysis
 - Cross-execution comparison
+<img width="675" height="674" alt="image" src="https://github.com/user-attachments/assets/3e75f4a3-9685-40de-88e9-5fcef2af9b1c" />
 
 ---
 
