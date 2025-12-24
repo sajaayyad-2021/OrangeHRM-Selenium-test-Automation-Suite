@@ -11,7 +11,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 
 ---
 
-## 📋 Features
+##  Features
 
 ### 🎯 Core Features
 - ✅ Selenium WebDriver 4.x automation
@@ -21,7 +21,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 - ✅ Screenshot capture on failure
 - ✅ Detailed logging and error tracking
 
-### 🗄️ Database Features
+###  Database Features
 - ✅ MySQL 8.x integration
 - ✅ Dual mode: File-based & Database-driven
 - ✅ Automated test data migration
@@ -29,7 +29,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 - ✅ Real-time result comparison
 - ✅ Advanced analytics and reporting
 
-### 🔧 CI/CD Features
+###  CI/CD Features
 - ✅ Jenkins pipeline integration
 - ✅ Parameterized builds
 - ✅ Automated test execution
@@ -108,7 +108,7 @@ OrangeHRM-Automation-Suite/
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -169,7 +169,7 @@ Database Statistics:
 
 ---
 
-## 💻 Usage
+##  Usage
 
 ### Running Tests - Database Mode (Recommended)
 
@@ -216,7 +216,7 @@ mvn clean test \
 
 ---
 
-## 🗄️ Database Architecture
+##  Database Architecture
 
 ### Schema Overview
 
@@ -562,9 +562,8 @@ Query database for custom reports:
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
-Contributions are welcome! Please follow these steps:
 
 1. **Fork** the repository
 2. **Create** your feature branch
@@ -589,7 +588,7 @@ This project is for **educational purposes** only.
 
 ---
 
-## 👤 Author
+##  Author
 
 **Saja Ayyad**
 
@@ -598,7 +597,7 @@ This project is for **educational purposes** only.
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - OrangeHRM for the demo application
 - Selenium community
