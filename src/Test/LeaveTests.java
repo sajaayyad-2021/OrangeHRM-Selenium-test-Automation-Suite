@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +28,8 @@ public class LeaveTests extends BaseTemplate {
 
     String[] testsList = null;
     String activeTest = null;
+    
+    private static final String SUITE_NAME = "LeaveTests";
 
     @Test
     public void LeaveSuite() throws IOException, InterruptedException {
@@ -44,16 +46,29 @@ public class LeaveTests extends BaseTemplate {
         if ("ALL".equalsIgnoreCase(testNmaes_leave)) {
             testsList = discoverTestCases(className);
         } else {
-            testsList = testNmaes_leave.split(",");
+            testsList = Arrays.stream(testNmaes_leave.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toArray(String[]::new);
         }
 
-        // FIXED: Correct login before leave suite
-        Config loginCfg = loadthisTestConfig("LoginTests", "TC_LOG_001_validLogin");
+        // ===================== LOGIN ONCE =====================
+        Config loginCfg;
+        
+        if (isDatabaseMode()) {
+            System.out.println("[DATABASE MODE] Loading login config from database");
+            loginCfg = getDbChecker().getTestConfiguration("LoginTests", "TC_LOG_001_validLogin");
+        } else {
+            System.out.println("[FILE MODE] Loading login config from file");
+            loginCfg = loadthisTestConfig("LoginTests", "TC_LOG_001_validLogin");
+        }
+        
         mf = new MainFunctions(driver, loginCfg);
         mf.performLoginWithoutLogout(loginCfg);
 
         System.out.println("[LeaveSuite] Logged in successfully");
 
+        // ===================== Test Loop =====================
         for (String tc : testsList) {
 
             activeTest = tc;
@@ -62,18 +77,137 @@ public class LeaveTests extends BaseTemplate {
             currentTest = extent.createTest(activeTest);
             currentTest.assignCategory("Regression");
             currentTest.assignCategory("Leave");
+            currentTest.info("Starting test: " + activeTest);
 
-            Config cfg = loadthisTestConfig(className, tc);
-            mf = new MainFunctions(driver, cfg);
+            // Delete old artifacts (if file mode)
+            if (!isDatabaseMode()) {
+                MainFunctions.deleteFiles(actualPath(className, tc));
+                MainFunctions.deleteFiles(diffPath(className, tc));
+            }
 
-            general(cfg, className, tc);
+            try {
+                // ========================================================
+                // LOAD CONFIG
+                // ========================================================
+                Config cfg;
+                
+                if (isDatabaseMode()) {
+                    // NEW: Load from database
+                    System.out.println("[DATABASE MODE] Loading config from database");
+                    cfg = getDbChecker().getTestConfiguration(SUITE_NAME, tc);
+                    
+                    if (cfg == null) {
+                        currentTest.fail("Configuration not found in database for: " + tc);
+                        continue;
+                    }
+                } else {
+                    // OLD: Load from file
+                    System.out.println("[FILE MODE] Loading config from file");
+                    cfg = loadthisTestConfig(className, tc);
+                }
 
-            currentTest.pass("Test completed");
+                mf = new MainFunctions(driver, cfg);
+
+                // ========================================================
+                // EXECUTE TEST
+                // ========================================================
+                executeLeaveTest(cfg, className, tc);
+
+                currentTest.pass("Test completed");
+
+            } catch (Throwable e) {
+                currentTest.fail("Exception occurred: " + e.getMessage());
+                currentTest.fail(e);
+                e.printStackTrace();
+                
+                // Save error to database if enabled
+                if (isDatabaseMode()) {
+                    getDbChecker().saveTestError(
+                        SUITE_NAME, 
+                        tc, 
+                        e.getMessage(), 
+                        getStackTrace(e), 
+                        0, 
+                        null
+                    );
+                }
+            }
         }
 
         extent.flush();
     }
 
+    // =================================================================
+    // EXECUTE LEAVE TEST
+    // =================================================================
+    private void executeLeaveTest(Config cfg, String className, String testCaseName) {
+
+        try {
+            currentTest.info("Executing: " + testCaseName);
+
+            mf.performLeaveSearch(cfg);
+
+            String actualResult = mf.getCurrentURL();
+            currentTest.info("Actual: " + actualResult);
+
+            // ========================================================
+            // SAVE & COMPARE
+            // ========================================================
+            if (isDatabaseMode()) {
+                // NEW: Database comparison
+                compareWithDatabase(testCaseName, actualResult);
+            } else {
+                // OLD: File comparison
+                saveDataArtifacts(className, testCaseName, actualResult);
+            }
+
+        } catch (Exception e) {
+            currentTest.fail("Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+   
+    // DATABASE 
+    
+    private void compareWithDatabase(String testCaseName, String actualResult) {
+        try {
+            // Determine baseline type
+            String baselineType = "url"; // Leave tests usually check URLs
+            
+            currentTest.info("Baseline Type: " + baselineType);
+            
+            // Compare with database
+            String result = getDbChecker().compareWithBaseline(
+                SUITE_NAME,
+                testCaseName,
+                actualResult,
+                baselineType
+            );
+
+            // Log to ExtentReport
+            currentTest.info(MarkupHelper.createCodeBlock(
+                "TEST CASE: " + testCaseName + "\n" +
+                "ACTUAL: " + actualResult + "\n" +
+                "RESULT: " + result
+            ));
+
+            if ("PASS".equals(result)) {
+                currentTest.pass("✓ Actual matches expected");
+            } else if ("FAIL".equals(result)) {
+                currentTest.fail("✗ Baseline mismatch");
+            } else {
+                currentTest.warning("⚠ " + result);
+            }
+
+        } catch (Exception ex) {
+            currentTest.fail("Database comparison failed: " + ex.getMessage());
+        }
+    }
+
+    // =================================================================
+    // AUTO DISCOVERY
+    // =================================================================
     private String[] discoverTestCases(String className) {
         try {
             String root = "artifacts/TestCases/" + className;
@@ -94,23 +228,9 @@ public class LeaveTests extends BaseTemplate {
         }
     }
 
-    private void general(Config cfg, String className, String testCaseName) {
-
-        try {
-            currentTest.info("Executing: " + testCaseName);
-
-            mf.performLeaveSearch(cfg);
-
-            String actualResult = mf.getCurrentURL();
-            currentTest.info("Actual: " + actualResult);
-
-            saveDataArtifacts(className, testCaseName, actualResult);
-
-        } catch (Exception e) {
-            currentTest.fail("Exception: " + e.getMessage());
-        }
-    }
-
+    // =================================================================
+    // FILE COMPARISON (OLD - KEPT FOR BACKWARD COMPATIBILITY)
+    // =================================================================
     private void saveDataArtifacts(String className, String testName, String actualData) {
 
         try {
@@ -152,5 +272,16 @@ public class LeaveTests extends BaseTemplate {
         } catch (Exception ex) {
             currentTest.fail("Artifact error: " + ex.getMessage());
         }
+    }
+    
+    // =================================================================
+    // HELPER: Get Stack Trace
+    // =================================================================
+    private String getStackTrace(Throwable e) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement element : e.getStackTrace()) {
+            sb.append(element.toString()).append("\n");
+        }
+        return sb.toString();
     }
 }

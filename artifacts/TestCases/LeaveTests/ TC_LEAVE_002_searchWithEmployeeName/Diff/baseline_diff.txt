@@ -4,3 +4,15 @@ RESULT: PASS
 EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
 ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
 RESULT: PASS
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+RESULT: FAIL
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+RESULT: FAIL
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+RESULT: FAIL
+EXPECTED: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index
+ACTUAL: https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList
+RESULT: FAIL

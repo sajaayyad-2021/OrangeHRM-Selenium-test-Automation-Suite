@@ -1,0 +1,58 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Eclipse
+.metadata
+.classpath
+.project
+.settings/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Test Output
+test-output/
+screenshots/
+extent-reports/
+logs/
+
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Credentials (IMPORTANT!)
+*.properties
+database.properties
+db.properties
+
+# Sensitive Data
+artifacts/TestCases/*/Actual/
+artifacts/TestCases/*/Diff/
+
+# Node modules
+node_modules/
+
+# Compiled class files
+*.class

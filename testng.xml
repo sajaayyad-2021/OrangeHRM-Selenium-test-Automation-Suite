@@ -1,13 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-
-
 <suite name="AutomationSuite">
 
-    <test name="RegressionSuite">
+    <listeners>
+        <listener class-name="reporting.ExtentTestNGITestListener"/>
+       
+    </listeners>
+
+    <test name="LoginSuite">
         <classes>
-           
-            <class name="Test.LeaveTests"/>
+            <class name="test.LoginTests"/>
+        </classes>
+    </test>
+
+    <test name="PIMSuite">
+        <classes>
+            <class name="test.PIMTests"/>
+        </classes>
+    </test>
+
+    <test name="LeaveSuite">
+        <classes>
+            <class name="test.LeaveTests"/>
         </classes>
     </test>
 
