@@ -494,6 +494,8 @@ Global Tool Configuration:
 - Click **Build with Parameters**
 - Select browser, database mode, etc.
 - Click **Build**
+<img width="1357" height="390" alt="image" src="https://github.com/user-attachments/assets/dcb8a717-4226-480d-8006-76214b2572e9" />
+<img width="1352" height="650" alt="image" src="https://github.com/user-attachments/assets/a3dfe01e-bc51-44eb-b8b5-443df80a58c6" />
 
 ---
 
