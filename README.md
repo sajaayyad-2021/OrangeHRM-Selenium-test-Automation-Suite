@@ -609,13 +609,7 @@ This project is for **educational purposes** only.
 
 ---
 
-## Support
 
-For issues or questions:
-- Open an [Issue](https://github.com/sajaayyad-2021/OrangeHRM-Automation-Suite/issues)
-- Start a [Discussion](https://github.com/sajaayyad-2021/OrangeHRM-Automation-Suite/discussions)
-
----
 
 ** Star this repository if you find it helpful!**
 
