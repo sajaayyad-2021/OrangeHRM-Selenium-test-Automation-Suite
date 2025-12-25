@@ -167,7 +167,7 @@ Database Statistics:
 
 ---
 
-## 💻 Usage
+##  Usage
 
 ### Running Tests - Database Mode (Recommended)
 
@@ -210,6 +210,14 @@ mvn clean test \
   -Dtest=LoginTests \
   -DtestNmaes_login=TC_LOG_001_validLogin \
   -DdatabaseMode=false
+---------------------------
+mvn clean test ^
+  -DsuitePath="artifacts" ^
+  -DxmlFile="testng.xml" ^
+  -Durl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login" ^
+  -Dbrowser="chrome" ^
+  -DtestNmaes_leave="TC_LEAVE_001_basicSearch,TC_LEAVE_004_selectLeaveStatus"
+
 ```
 
 ---
