@@ -13,7 +13,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 
 ##  Features
 
-### 🎯 Core Features
+###  Core Features
 - ✅ Selenium WebDriver 4.x automation
 - ✅ TestNG framework with parallel execution
 - ✅ Page Object Model (POM) design pattern
@@ -21,7 +21,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 - ✅ Screenshot capture on failure
 - ✅ Detailed logging and error tracking
 
-### 🗄️ Database Features
+###  Database Features
 - ✅ MySQL 8.x integration
 - ✅ Dual mode: File-based & Database-driven
 - ✅ Automated test data migration
@@ -29,7 +29,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 - ✅ Real-time result comparison
 - ✅ Advanced analytics and reporting
 
-### 🔧 CI/CD Features
+### CI/CD Features
 - ✅ Jenkins pipeline integration
 - ✅ Parameterized builds
 - ✅ Automated test execution
@@ -37,7 +37,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 - ✅ Scheduled test runs
 - ✅ Email notifications
 
-### 📦 Test Coverage
+###  Test Coverage
 - ✅ Login module (5 test cases)
 - ✅ PIM module (7 test cases)
 - ✅ Leave management (6 test cases)
@@ -47,7 +47,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 **Language:** Java 21  
 **Automation:** Selenium WebDriver 4.x  
@@ -60,7 +60,7 @@ Professional Selenium-based test automation framework for OrangeHRM with MySQL d
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 ```
 OrangeHRM-Automation-Suite/
 │
@@ -108,7 +108,7 @@ OrangeHRM-Automation-Suite/
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -596,7 +596,7 @@ This project is for **educational purposes** only.
 
 ## 👤 Author
 
-**Saja Ayyad**
+**Saja Yaser Ayyad**
 
 - GitHub: [@sajaayyad-2021](https://github.com/sajaayyad-2021)
 - Email: sajayaser085@gmail.com
