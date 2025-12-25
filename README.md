@@ -94,8 +94,6 @@ OrangeHRM-Automation-Suite/
 │       ├── PIMTests/
 │       └── LeaveTests/
 │
-├── database/                    # Database scripts
-│   └── create_database.sql
 │
 ├── test-output/                 # Test execution reports
 ├── screenshots/                 # Failure screenshots
