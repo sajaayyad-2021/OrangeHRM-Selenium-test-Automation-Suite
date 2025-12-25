@@ -578,17 +578,17 @@ Query database for custom reports:
 Contributions are welcome! Please follow these steps:
 
 1. **Fork** the repository
-2. **Create** your feature branch
+2. **Create** your branch
 ```bash
-   git checkout -b feature/AmazingFeature
+   git checkout -b 
 ```
 3. **Commit** your changes
 ```bash
-   git commit -m 'Add some AmazingFeature'
+   git commit -m '..'
 ```
 4. **Push** to the branch
 ```bash
-   git push origin feature/AmazingFeature
+   git push origin ...
 ```
 5. **Open** a Pull Request
 
