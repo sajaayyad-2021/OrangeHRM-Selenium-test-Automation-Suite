@@ -592,15 +592,10 @@ Contributions are welcome! Please follow these steps:
 ```
 5. **Open** a Pull Request
 
----
-
-##  License
-
-This project is for **educational purposes** only.
 
 ---
 
-## 👤 Author
+## Author
 
 **Saja Yaser Ayyad**
 
