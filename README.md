@@ -518,8 +518,13 @@ Standard TestNG HTML reports:
 - Suite summary
 - Failed tests details
 
+<img width="1359" height="635" alt="image" src="https://github.com/user-attachments/assets/5fc28e7a-d702-434c-8bbd-a5690e38ddad" />
+
+<img width="1361" height="617" alt="image" src="https://github.com/user-attachments/assets/1bb9bc45-e69f-4a47-bdc9-c90b2a6b12f7" />
+
+
 **Location:** `OrangeHRM-Automation-Suite\test-output\Reports\Automation_Combined_Report_20251224_142523.html`
-<img width="675" height="674" alt="image" src="https://github.com/user-attachments/assets/3e75f4a3-9685-40de-88e9-5fcef2af9b1c" />
+
 ### Database Reports
 
 Query database for custom reports:
@@ -527,7 +532,7 @@ Query database for custom reports:
 - Flaky test detection
 - Performance analysis
 - Cross-execution comparison
-
+<img width="675" height="674" alt="image" src="https://github.com/user-attachments/assets/3e75f4a3-9685-40de-88e9-5fcef2af9b1c" />
 ---
 
 ## 🔄 Workflow
@@ -583,7 +588,7 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📝 License
+##  License
 
 This project is for **educational purposes** only.
 
@@ -596,14 +601,7 @@ This project is for **educational purposes** only.
 - GitHub: [@sajaayyad-2021](https://github.com/sajaayyad-2021)
 - Email: sajayaser085@gmail.com
 
----
 
-## 🙏 Acknowledgments
-
-- OrangeHRM for the demo application
-- Selenium community
-- TestNG framework
-- ExtentReports team
 
 ---
 
