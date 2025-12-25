@@ -465,7 +465,8 @@ pipeline {
     }
 }
 ```
-
+<img width="1357" height="390" alt="image" src="https://github.com/user-attachments/assets/dcb8a717-4226-480d-8006-76214b2572e9" /> 
+<img width="1352" height="650" alt="image" src="https://github.com/user-attachments/assets/a3dfe01e-bc51-44eb-b8b5-443df80a58c6" />
 ### Setting Up Jenkins
 
 #### 1. Install Jenkins Plugins
@@ -517,8 +518,8 @@ Standard TestNG HTML reports:
 - Suite summary
 - Failed tests details
 
-**Location:** `test-output/index.html`
-
+**Location:** `OrangeHRM-Automation-Suite\test-output\Reports\Automation_Combined_Report_20251224_142523.html`
+<img width="675" height="674" alt="image" src="https://github.com/user-attachments/assets/3e75f4a3-9685-40de-88e9-5fcef2af9b1c" />
 ### Database Reports
 
 Query database for custom reports:
