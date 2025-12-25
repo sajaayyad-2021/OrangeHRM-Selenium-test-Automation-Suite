@@ -150,10 +150,8 @@ exit
 #### 4. Run Migration Script
 ```bash
 # Windows
-java -cp "target/classes;lib/*" migration.DatabaseMigrationScript
+mvn exec:java `"-Dexec.mainClass=migration.DatabaseMigrationScript`"
 
-# Mac/Linux
-java -cp "target/classes:lib/*" migration.DatabaseMigrationScript
 ```
 
 Expected Output:
