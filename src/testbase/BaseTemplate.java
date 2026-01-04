@@ -5,14 +5,23 @@ import java.time.Duration;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.ExtentReports;
+
+// Allure imports
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 
 import database.DatabaseManager;
 import reporting.ExtentManager;
@@ -153,10 +162,11 @@ public class BaseTemplate {
     }
 
     // ========================================================================
-    // TestNG Lifecycle
+    // TestNG Lifecycle with Allure
     // ========================================================================
     
     @BeforeSuite
+    @Step("Setting up test suite")
     public void beforeSuiteSetup() {
         System.out.println("\n╔═══════════════════════════════════════════════════════╗");
         System.out.println("║          TEST EXECUTION STARTING                      ║");
@@ -167,51 +177,70 @@ public class BaseTemplate {
         }
         System.out.println("╚═══════════════════════════════════════════════════════╝\n");
         
+        // Allure parameters
+        Allure.parameter("Browser", browser);
+        Allure.parameter("Database Mode", useDatabaseMode);
+        Allure.parameter("Suite Path", SuitePath);
+        
         // 1. Initialize Database (if enabled)
         if (useDatabaseMode) {
-            try {
-                DatabaseManager dbManager = DatabaseManager.getInstance();
-                if (dbManager.testConnection()) {
-                    System.out.println("✓ Database connection established");
-                } else {
-                    System.err.println("✗ Database connection failed!");
+            Allure.step("Initializing database connection", () -> {
+                try {
+                    DatabaseManager dbManager = DatabaseManager.getInstance();
+                    if (dbManager.testConnection()) {
+                        System.out.println("✓ Database connection established");
+                        Allure.step("Database connection: SUCCESS");
+                    } else {
+                        System.err.println("✗ Database connection failed!");
+                        System.err.println("⚠ Falling back to FILE-BASED mode");
+                        useDatabaseMode = false;
+                        Allure.step("Database connection: FAILED - Falling back to FILE mode");
+                    }
+                } catch (Exception e) {
+                    System.err.println("✗ Database initialization error: " + e.getMessage());
                     System.err.println("⚠ Falling back to FILE-BASED mode");
                     useDatabaseMode = false;
+                    Allure.addAttachment("Database Error", e.getMessage());
                 }
-            } catch (Exception e) {
-                System.err.println("✗ Database initialization error: " + e.getMessage());
-                System.err.println("⚠ Falling back to FILE-BASED mode");
-                useDatabaseMode = false;
-            }
+            });
         }
         
         // 2. Initialize WebDriver
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        System.out.println("✓ WebDriver initialized");
+        Allure.step("Initializing WebDriver", () -> {
+            driver = new ChromeDriver();
+            driver.manage().window().maximize();
+            wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            System.out.println("✓ WebDriver initialized");
+        });
         
         // 3. Initialize ExtentReports
-        extent = ExtentManager.getInstance();
-        System.out.println("✓ ExtentReports initialized");
+        Allure.step("Initializing ExtentReports", () -> {
+            extent = ExtentManager.getInstance();
+            System.out.println("✓ ExtentReports initialized");
+        });
         
         // 4. Initialize Database Result Checker (if database mode)
         if (useDatabaseMode) {
-            dbChecker = new DatabaseResultChecker();
-            
-            String cliArgs = String.format(
-                "-out %s -browser %s -testNmaes_login %s -testNmaes_pim %s -testNmaes_leave %s -url %s",
-                SuitePath, browser, testNmaes_login, testNmaes_pim, testNmaes_leave, url
-            );
-            
-            executionId = dbChecker.initializeExecution(browser, url, cliArgs);
-            System.out.println("✓ Database execution tracking started (ID: " + executionId + ")");
+            Allure.step("Starting database execution tracking", () -> {
+                dbChecker = new DatabaseResultChecker();
+                
+                String cliArgs = String.format(
+                    "-out %s -browser %s -testNmaes_login %s -testNmaes_pim %s -testNmaes_leave %s -url %s",
+                    SuitePath, browser, testNmaes_login, testNmaes_pim, testNmaes_leave, url
+                );
+                
+                executionId = dbChecker.initializeExecution(browser, url, cliArgs);
+                System.out.println("✓ Database execution tracking started (ID: " + executionId + ")");
+                Allure.parameter("Execution ID", executionId);
+            });
         }
         
         // 5. Navigate to URL
         if (url != null && !url.isEmpty()) {
-            driver.get(url);
-            System.out.println("✓ Navigated to: " + url);
+            Allure.step("Navigating to: " + url, () -> {
+                driver.get(url);
+                System.out.println("✓ Navigated to: " + url);
+            });
         }
         
         System.out.println("\n═════════════════════════════════════════════════════════\n");
@@ -226,42 +255,101 @@ public class BaseTemplate {
             dbChecker.startTest();
         }
         
+        // Allure test name
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName(method.getName());
+        });
+        
         System.out.println("\n▶ Starting test: " + method.getName());
     }
 
+    @AfterMethod
+    public void afterMethod(ITestResult result) {
+        
+        if (result.getStatus() == ITestResult.FAILURE) {
+            // Capture screenshot on failure
+            attachScreenshot("Failure Screenshot");
+            
+            // Attach error details to Allure
+            Allure.addAttachment("Error Message", result.getThrowable().getMessage());
+            Allure.addAttachment("Stack Trace", getStackTrace(result.getThrowable()));
+        }
+    }
+
     @AfterSuite
+    @Step("Tearing down test suite")
     public void afterSuiteCleanup() {
         System.out.println("\n╔═══════════════════════════════════════════════════════╗");
         System.out.println("║              TEST EXECUTION COMPLETED                 ║");
         System.out.println("╚═══════════════════════════════════════════════════════╝\n");
         
         System.out.println("Test Results Summary:");
-        System.out.println("  Check ExtentReports for detailed statistics");
+        System.out.println("  Check ExtentReports and Allure for detailed statistics");
         
         // Finalize database (if enabled)
         if (useDatabaseMode && dbChecker != null && executionId > 0) {
-            dbChecker.finalizeExecution(0, 0, 0);
-            System.out.println("✓ Database execution record finalized");
+            Allure.step("Finalizing database execution", () -> {
+                dbChecker.finalizeExecution(0, 0, 0);
+                System.out.println("✓ Database execution record finalized");
+            });
             
-            try {
-                DatabaseManager.getInstance().closeConnection();
-                System.out.println("✓ Database connection closed");
-            } catch (Exception e) {
-                System.err.println("Warning: Error closing database: " + e.getMessage());
-            }
+            Allure.step("Closing database connection", () -> {
+                try {
+                    DatabaseManager.getInstance().closeConnection();
+                    System.out.println("✓ Database connection closed");
+                } catch (Exception e) {
+                    System.err.println("Warning: Error closing database: " + e.getMessage());
+                }
+            });
         }
         
         // Quit WebDriver
-        try {
-            if (driver != null) {
-                driver.quit();
-                System.out.println("✓ WebDriver closed");
+        Allure.step("Closing WebDriver", () -> {
+            try {
+                if (driver != null) {
+                    driver.quit();
+                    System.out.println("✓ WebDriver closed");
+                }
+            } catch (Exception e) {
+                System.err.println("Warning: Error closing WebDriver: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.err.println("Warning: Error closing WebDriver: " + e.getMessage());
-        }
+        });
         
         System.out.println("\n═════════════════════════════════════════════════════════\n");
+    }
+    
+    // ========================================================================
+    // Allure Helper Methods
+    // ========================================================================
+    
+    /**
+     * Attach screenshot to Allure report
+     */
+    @Attachment(value = "{name}", type = "image/png")
+    public byte[] attachScreenshot(String name) {
+        if (driver != null) {
+            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        }
+        return new byte[0];
+    }
+    
+    /**
+     * Attach text to Allure report
+     */
+    @Attachment(value = "{name}", type = "text/plain")
+    public String attachText(String name, String content) {
+        return content;
+    }
+    
+    /**
+     * Get stack trace as string
+     */
+    private String getStackTrace(Throwable throwable) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement element : throwable.getStackTrace()) {
+            sb.append(element.toString()).append("\n");
+        }
+        return sb.toString();
     }
     
     // ========================================================================

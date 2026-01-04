@@ -7,7 +7,7 @@ import java.util.Properties;
 public class DatabaseManager {
     
  
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/orangehrm_test_db";
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/OrangeHRM_DB";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "root1234"; 
     

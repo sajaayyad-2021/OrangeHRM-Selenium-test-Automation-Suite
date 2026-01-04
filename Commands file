@@ -1,0 +1,63 @@
+--COMMAND
+# Single Login Test
+mvn clean test -DtestNmaes_login=TC_LOG_001_validLogin -Durl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+
+# All Login Tests (5 tests)
+mvn clean test -DtestNmaes_login=ALL -Durl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+
+# All PIM Tests (8 tests)
+mvn clean test -DtestNmaes_pim=ALL -Durl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+
+# All Leave Tests (6 tests)
+mvn clean test -DtestNmaes_leave=ALL -Durl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+
+# All Tests (19 tests)
+mvn clean test -DtestNmaes_login=ALL -DtestNmaes_pim=ALL -DtestNmaes_leave=ALL -Durl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+
+# Specific Tests Mix
+mvn clean test -DtestNmaes_login=TC_LOG_001_validLogin,TC_LOG_003_emptyFields -DtestNmaes_pim=TC_PIM_001_addEmployeeValid -Durl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+
+# With Browser Selection
+mvn clean test -DtestNmaes_login=ALL -Dbrowser=chrome -Durl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+-----------------------------------------------------------------------------------
+--MIGRATION SCRIPT
+# Run Migration Script
+mvn compile exec:java
+
+# Re-run Migration (if needed)
+mvn clean compile exec:java
+---------------------------------------------------------------------------------------------
+--BUILD AND COMPILE 
+# Clean and Compile
+mvn clean compile
+
+# Package Project
+mvn clean package
+
+# Install to Local Repository
+mvn clean install
+
+# Skip Tests During Build
+mvn clean install -DskipTests
+-------------------------------------------------------------------------------------------------
+--ALLURE REPORT
+# Generate Allure Report
+mvn allure:report
+
+# Serve Allure Report (opens in browser)
+mvn allure:serve
+
+# Clean Allure Results
+mvn clean
+---------------------------------------------------------------------------------------------------
+--Debugging
+# Run with Debug Info
+mvn clean test -X -DtestNmaes_login=TC_LOG_001_validLogin
+
+# Show Dependency Tree
+mvn dependency:tree
+
+# Check for Updates
+mvn versions:display-dependency-updates
+----------------------------------------------------------------------------------------------------
+
